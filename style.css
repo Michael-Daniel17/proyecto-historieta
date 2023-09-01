@@ -1,0 +1,256 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.characters {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 100px;
+}
+
+.man {
+    position: relative;
+}
+
+.head {
+    width: 100px;
+    height: 100px;
+    border: solid 3px black;
+    border-radius: 50%;
+    background-color: #FFDAB9;
+}
+
+.eyes-cont {
+    padding-top: 30px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.eyes-cont * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 50%;
+    border: solid thin black;
+}
+
+.left-pup,
+.right-pup {
+    height: 7px;
+    width: 7px;
+    background-color: black;
+}
+
+.mouth {
+    position: relative;
+    border-radius: 0 0 50% 50%;
+    width: 30px;
+    height: 25px;
+    overflow: hidden;
+    background-color: black;
+    margin: auto;
+}
+
+.mouth::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 12px;
+    background-color: #FFDAB9;
+}
+
+.mouth::before {
+    content: "";
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.neck {
+    width: 0;
+    margin: auto;
+    height: 10px;
+    border: solid 2px black;
+}
+
+.body {
+    width: 3px;
+    height: 60px;
+    border: solid 2px black;
+    margin: auto;
+}
+
+.body::after {
+    content: "";
+    position: absolute;
+    height: 70px;
+    transform-origin: 0% 0%; 
+    transform: rotate(-40deg); 
+    border: solid 2px black;
+}
+
+.body::before {
+    content: "";
+    position: absolute;
+    height: 70px;
+    transform-origin: 50% -7%; 
+    transform: rotate(40deg); 
+    border: solid 2px black;
+}
+
+.arm {
+    width: 3px;
+    height: 70px;
+    border: solid 2px black;
+    margin: auto;
+    transform-origin: 50% 0%; 
+    transform: rotate(30deg); 
+}
+
+.arm::after {
+    content: "";
+    position: absolute;
+    height: 70px;
+    border: solid 2px black;
+    transform-origin: 0% 0%; 
+    transform: rotate(-60deg); 
+}
+
+/*Woman personalization*/
+
+.woman {
+    margin-left: 60px;
+    position: relative;
+    
+}
+.woman .head {
+    position: relative;
+}
+
+.woman .head::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    border: solid 3px black;
+    border-radius: 0 0 40% 40%;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    transform: rotate(40deg);
+    left: 90px;
+    top: 32px;
+}
+
+.woman .head::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    border: solid 3px black;
+    border-radius: 0 0 40% 40%;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-40deg);
+    left: -45px;
+    top: 32px;
+}
+
+.vineta-container {
+    position: absolute;
+    top: -60%;
+    left: -170%;
+    width: 250px;
+    height: 150px;
+    
+}
+
+.vin-w {
+    position: absolute;
+    top: -60%;
+    left: 25%;
+    width: 250px;
+    height: 150px;
+}
+
+.viñeta {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.text {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    right: 15%;
+    top: 0;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.text-w {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    right: 15%;
+    top: 0;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.woman .viñeta_woman {
+    width: 100%;
+    left: 40%;
+    transform: scaleX(-1);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+    width: 200px;
+} 
+
+.play {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+    line-height: 50%;
+    background-color: #4caf50;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 20px;
+    color: #fff;
+}
+
+
+
+
+
