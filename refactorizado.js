@@ -24,7 +24,8 @@ const texto_woman = [
 ]
 
 next.addEventListener("click", avanzarHistoria);
-prev.addEventListener("click", retrocederHistoria)
+prev.addEventListener("click", retrocederHistoria);
+playBtn.addEventListener("click", reproduccionAutomatica)
 
 let charIndex = 0,
     contador_woman = 0,
@@ -38,6 +39,7 @@ let charIndex = 0,
     pausarHistoria = false,
     nameViñeta = "";
 
+prev.disabled = true;
 
 function general_type(mensajes, contador, containerText) {
     // console.log(`El valor de ${nameViñeta} es : ${contador} `)
@@ -47,22 +49,28 @@ function general_type(mensajes, contador, containerText) {
         setTimeout(function () {
             general_type(mensajes, contador, containerText);
         }, 50);
+        manejoBtns(next,true)
+        manejoBtns(prev,true)
         return;
     }
-    if (contador_woman >= mensajes.length) next.disabled = true;
-
     charIndex = 0;
+    manejoBtns(next,false);
+    manejoBtns(prev,false);
+    checkBtns();
+    if (contador_woman >= mensajes.length) manejoBtns(next,true);
+    if (contador_man <= 1) manejoBtns(prev,true);
+    if (contador_woman >= 1) manejoBtns(prev,false);
 }
 
 function avanzarHistoria() {
     avanzar++;
     if (avanzar % 2 === 0) {
-        nameViñeta = "contador Man "
+        nameViñeta = "contador Man ";
         agregarVinetasDinamicas(viñeta_man, vineta_woman, text_woman)
         general_type(texto_man, contador_man, text);
         contador_man++;
     } else if (avanzar % 2 !== 0) {
-        nameViñeta = "contador Woman"
+        nameViñeta = "contador Woman";
         agregarVinetasDinamicas(vineta_woman, viñeta_man, text)
         general_type(texto_woman, contador_woman, text_woman);
         contador_woman++;
@@ -72,19 +80,99 @@ function avanzarHistoria() {
 function retrocederHistoria() {
     check = false;
     if (avanzar % 2 !== 0) {
-        console.log("es par")
-        
         contador_woman--;
         avanzar--;
-        agregarVinetasDinamicas(viñeta_man,vineta_woman,text)
-        general_type(texto_man, contador_man, text);
+        agregarVinetasDinamicas(viñeta_man,vineta_woman,text_woman)
+        general_type(texto_man, contador_woman, text);
         return;
     }
-    console.log("es impar")
     contador_man--;
     avanzar--;
-    agregarVinetasDinamicas(vineta_woman,viñeta_man,text_woman)
-    general_type(texto_woman, contador_woman, text_woman);
+    agregarVinetasDinamicas(vineta_woman,viñeta_man,text)
+    general_type(texto_woman, contador_man, text_woman);
+    
+}
+
+function reproduccionAutomatica() {
+    check = true;
+    iconMedia.classList.toggle("bx-play");
+    iconMedia.classList.toggle("bx-pause");
+    
+    if (pausarHistoria) console.log("renaudando historia")
+    if (iconMedia.classList.contains("bx-play")) {
+        pausandoHistoria();
+    } else {
+        next.disabled = true;
+        console.log("PLAY")
+        reproduciendoHistoria();
+    }
+    if (iconMedia.classList.contains("bx-reset")) {
+        resetHistory();
+        iconMedia.classList.remove("bx-reset");
+        iconMedia.classList.remove("bx-play")
+        iconMedia.classList.add("bx-pause");
+    } 
+}
+
+function pausandoHistoria() {
+    console.log(charIndexMan)
+    pausarHistoria = true;
+    console.log("Pausando historia")
+    if (avanzar % 2 === 0) {
+        
+        clearTimeout(myTimeOutMan)
+        clearTimeout(timeOutDos)
+        prev.disabled = false;
+        next.disabled = false;
+        console.log(avanzar)
+       
+    } else if (avanzar % 2 !== 0) {
+        console.log("SOY WOMAN " + avanzar)
+        clearTimeout(myTimeOutWoman)
+        prev.disabled = false;
+        next.disabled = false;
+    }
+}
+
+function reproduciendoHistoria() {
+    contador_man += 1;
+    contador_woman += 1;
+    
+    
+    timeOut = setTimeout(() => {
+        agregarVinetasDinamicas(viñeta_man,vineta_woman,text_woman)
+        avanzar++;
+        general_type(texto_man, contador_man, text);
+        
+        timeOutDos = setTimeout(() => {
+            agregarVinetasDinamicas(vineta_woman,viñeta_man,text)
+            avanzar++;
+            general_type(texto_woman, contador_woman, text_woman);
+        }, 4000);
+    },2000);
+    
+    if (contador_man > texto_man.length) {
+        contador_man -= 1;  
+        
+    } 
+    if (contador_woman > texto_woman.length) {
+        console.log("hola")
+        contador_woman -= 1;            
+        prev.disabled = false;
+        clearInterval(timeOut);
+        iconMedia.classList.add("bx-reset");
+    } 
+}
+
+function checkBtns () {
+    if (check) {
+        manejoBtns(prev,true);
+        manejoBtns(next,true)
+        reproduciendoHistoria();
+        return;
+    } 
+    manejoBtns(prev,false);
+    manejoBtns(next,false)
     
 }
 
@@ -93,5 +181,9 @@ function agregarVinetasDinamicas(nameVineta, vinetaTextContainer, textoName) {
     nameVineta.classList.remove("hidden");
     nameVineta.style.transition = "all .5s ease"
     textoName.textContent = "";
+}
+
+function manejoBtns(nombre,estado) {
+    nombre.disabled = estado;
 }
 
